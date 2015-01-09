@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.codehaus.sonar-plugins.java</groupId>
     <artifactId>java</artifactId>
-    <version>2.7</version>
+    <version>2.7.1</version>
   </parent>
 
   <artifactId>sonar-java-plugin</artifactId>
@@ -48,7 +48,12 @@
       <version>${project.version}</version>
     </dependency>
 
-    <dependency>
+      <dependency>
+          <groupId>org.codehaus.sonar.sslr-squid-bridge</groupId>
+          <artifactId>sslr-squid-bridge</artifactId>
+      </dependency>
+
+      <dependency>
       <groupId>org.codehaus.sonar</groupId>
       <artifactId>sonar-java-api</artifactId>
       <scope>provided</scope>
