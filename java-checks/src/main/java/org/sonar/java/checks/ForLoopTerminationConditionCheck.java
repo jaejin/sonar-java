@@ -23,7 +23,6 @@ import com.google.common.collect.ImmutableList;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.java.model.LiteralUtils;
 import org.sonar.plugins.java.api.tree.AssignmentExpressionTree;
 import org.sonar.plugins.java.api.tree.BaseTreeVisitor;
 import org.sonar.plugins.java.api.tree.BinaryExpressionTree;
@@ -136,7 +135,7 @@ public class ForLoopTerminationConditionCheck extends AbstractForLoopRule {
         if (expressionTree.is(Tree.Kind.IDENTIFIER)) {
           identifier = (IdentifierTree) expressionTree;
         } else {
-          value = LiteralUtils.intLiteralValue(expressionTree);
+          value = intLiteralValue(expressionTree);
         }
       }
       if (identifier != null && value != null) {

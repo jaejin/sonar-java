@@ -119,7 +119,6 @@ public class TestFileVisitorsBridge extends SquidAstVisitor<LexerlessGrammar> {
     public void addNoSonarLines(Set<Integer> lines) {
       // NOOP for tests.
     }
-
   }
 
 }

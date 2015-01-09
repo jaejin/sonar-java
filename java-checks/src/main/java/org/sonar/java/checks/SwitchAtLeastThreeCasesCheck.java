@@ -31,8 +31,7 @@ import org.sonar.plugins.java.api.tree.SwitchStatementTree;
 
 @Rule(
   key = SwitchAtLeastThreeCasesCheck.RULE_KEY,
-  priority = Priority.MINOR,
-  tags = {"misra"})
+  priority = Priority.MINOR)
 @BelongsToProfile(title = "Sonar way", priority = Priority.MINOR)
 public class SwitchAtLeastThreeCasesCheck extends BaseTreeVisitor implements JavaFileScanner {
 

@@ -33,7 +33,7 @@ import org.sonar.squidbridge.api.SourceFile;
 @Rule(
   key = ThreadRunCheck.RULE_KEY,
   priority = Priority.CRITICAL,
-  tags={"multi-threading"})
+  tags={"multithreading"})
 @BelongsToProfile(title = "Sonar way", priority = Priority.CRITICAL)
 public class ThreadRunCheck extends BytecodeVisitor {
 

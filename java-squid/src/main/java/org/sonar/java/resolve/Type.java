@@ -62,49 +62,29 @@ public class Type {
     //JLS8 4.2
     return tag <= DOUBLE;
   }
-
   public Symbol.TypeSymbol getSymbol() {
     return symbol;
   }
 
   public boolean is(String fullyQualifiedName) {
-    if (isTagged(CLASS)) {
-      return fullyQualifiedName.equals(symbol.getFullyQualifiedName());
-    } else if (tag < CLASS) {
+    if(isTagged(CLASS)) {
+      String ownerName = "";
+      if(!symbol.owner.name.isEmpty()) {
+        ownerName = symbol.owner.name + ".";
+      }
+      return fullyQualifiedName.equals(ownerName+symbol.name);
+    } else if(tag<CLASS) {
       //primitive type
       return fullyQualifiedName.equals(symbol.name);
-    } else if (isTagged(ARRAY)) {
-      return fullyQualifiedName.endsWith("[]") && ((ArrayType) this).elementType.is(fullyQualifiedName.substring(0, fullyQualifiedName.length() - 2));
+    }else if(isTagged(ARRAY)) {
+      return fullyQualifiedName.endsWith("[]") && ((ArrayType)this).elementType.is(fullyQualifiedName.substring(0, fullyQualifiedName.length()-2));
     }
     return isTagged(BOT) || !isTagged(UNKNOWN);
-  }
-
-  public boolean isSubtypeOf(String fullyQualifiedName) {
-    if (isTagged(CLASS)) {
-      if (is(fullyQualifiedName)) {
-        return true;
-      }
-      for (ClassType classType : symbol.superTypes()) {
-        if (classType.is(fullyQualifiedName)) {
-          return true;
-        }
-      }
-    }
-    return false;
   }
 
   public boolean isParametrized() {
     symbol.complete();
     return symbol.isParametrized;
-  }
-
-  public boolean isPrimitive() {
-    return tag <= BOOLEAN;
-  }
-
-  @Override
-  public String toString() {
-    return symbol == null ? "" : symbol.toString();
   }
 
   public static class ClassType extends Type {
@@ -188,7 +168,12 @@ public class Type {
 
     @Override
     public String toString() {
-      return resultType == null ? "constructor" : "returns " + resultType.toString();
+      return resultType==null ? "constructor" : "returns " + resultType.toString();
     }
+  }
+
+  @Override
+  public String toString() {
+    return symbol == null ? "" : symbol.toString();
   }
 }

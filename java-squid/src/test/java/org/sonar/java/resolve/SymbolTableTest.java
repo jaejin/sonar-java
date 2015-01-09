@@ -61,7 +61,6 @@ public class SymbolTableTest {
     assertThat(typeSymbol.getSuperclass()).isSameAs(result.symbol("Baz").type);
 
     assertThat(result.reference(25,21)).isSameAs(result.symbol("method"));
-    assertThat(classDeclaration.metadata().annotations()).hasSize(1);
   }
 
   @Test
@@ -372,9 +371,6 @@ public class SymbolTableTest {
 
     assertThat(result.reference(3, 19)).isSameAs(result.symbol("ExpressionInAnnotation"));
     assertThat(result.reference(3, 42)).isSameAs(result.symbol("VALUE"));
-    assertThat(result.reference(18, 6)).isSameAs(result.symbol("foo", 11));
-    assertThat(result.reference(19, 6)).isSameAs(result.symbol("foo", 14));
-    assertThat(result.reference(19, 14)).isSameAs(result.symbol("bar", 15));
   }
 
   @Test
@@ -395,15 +391,11 @@ public class SymbolTableTest {
     assertThat(result.reference(104, 5)).isSameAs(result.symbol("varargs", 100));
     assertThat(result.reference(105, 5)).isSameAs(result.symbol("varargs", 100));
     assertThat(result.reference(106, 5)).isSameAs(result.symbol("varargs", 111));
-    assertThat(result.reference(121, 5)).isSameAs(result.symbol("fun1", 115));
-    assertThat(result.reference(122, 5)).isSameAs(result.symbol("fun2", 116));
-    assertThat(result.reference(123, 5)).isSameAs(result.symbol("fun3", 117));
-    assertThat(result.reference(124, 5)).isSameAs(result.symbol("fun4", 118));
-    assertThat(result.reference(125, 5)).isSameAs(result.symbol("fun5", 119));
   }
-
+  void foo(String... s){}
   @Test
   public void FieldTypes() {
+    foo("", "");
     Result result = Result.createFor("FieldTypes");
     assertThat(result.symbol("fieldBoolean").type.symbol.name).isEqualTo("Boolean");
     assertThat(result.symbol("fieldBoolean").type.symbol.owner().name).isEqualTo("java.lang");

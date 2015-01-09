@@ -25,10 +25,7 @@ import org.sonar.api.PropertyType;
 import org.sonar.api.SonarPlugin;
 import org.sonar.api.config.PropertyDefinition;
 import org.sonar.api.resources.Qualifiers;
-import org.sonar.java.DefaultJavaResourceLocator;
-import org.sonar.java.JavaClasspath;
-import org.sonar.java.JavaClasspathProperties;
-import org.sonar.java.SonarComponents;
+import org.sonar.java.*;
 import org.sonar.plugins.jacoco.JaCoCoExtensions;
 import org.sonar.plugins.surefire.SurefireExtensions;
 
@@ -49,6 +46,7 @@ public class JavaPlugin extends SonarPlugin {
     builder.addAll(JaCoCoExtensions.getExtensions());
     builder.addAll(JavaClasspathProperties.getProperties());
     builder.add(
+        MMMetrics.class,
         JavaClasspath.class,
         JavaCommonRulesEngine.class,
         JavaCommonRulesDecorator.class,

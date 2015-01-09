@@ -5,13 +5,13 @@
   <parent>
     <groupId>org.codehaus.sonar-plugins.java</groupId>
     <artifactId>java</artifactId>
-    <version>2.9-SNAPSHOT</version>
+    <version>2.7</version>
   </parent>
   <artifactId>java-jacoco</artifactId>
 
   <name>SonarQube Java :: JaCoCo</name>
   <description><![CDATA[Get code coverage with <a href="http://www.jacoco.org/jacoco/">JaCoCo</a>.]]></description>
-  <url>http://redirect.sonarsource.com/plugins/jacoco.html</url>
+  <url>http://docs.codehaus.org/display/SONAR/JaCoCo+Plugin</url>
   <inceptionYear>2010</inceptionYear>
   <organization>
     <name>SonarSource</name>

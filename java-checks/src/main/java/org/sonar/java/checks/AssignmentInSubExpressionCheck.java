@@ -40,8 +40,7 @@ import javax.annotation.Nullable;
 
 @Rule(
   key = AssignmentInSubExpressionCheck.RULE_KEY,
-  priority = Priority.MAJOR,
-  tags = {"bug", "cwe", "misra"})
+  priority = Priority.MAJOR)
 @BelongsToProfile(title = "Sonar way", priority = Priority.MAJOR)
 public class AssignmentInSubExpressionCheck extends BaseTreeVisitor implements JavaFileScanner {
 

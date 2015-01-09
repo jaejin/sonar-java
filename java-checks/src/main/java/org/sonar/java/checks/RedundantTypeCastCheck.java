@@ -27,7 +27,6 @@ import org.sonar.check.Rule;
 import org.sonar.java.model.AbstractTypedTree;
 import org.sonar.java.resolve.Type;
 import org.sonar.java.resolve.Types;
-import org.sonar.plugins.java.api.JavaFileScannerContext;
 import org.sonar.plugins.java.api.tree.ExpressionTree;
 import org.sonar.plugins.java.api.tree.MethodInvocationTree;
 import org.sonar.plugins.java.api.tree.NewClassTree;
@@ -45,12 +44,6 @@ import java.util.Set;
 public class RedundantTypeCastCheck extends SubscriptionBaseVisitor {
 
   private Set<Tree> excluded = Sets.newHashSet();
-
-  @Override
-  public void scanFile(JavaFileScannerContext context) {
-    super.scanFile(context);
-    excluded.clear();
-  }
 
   @Override
   public List<Tree.Kind> nodesToVisit() {

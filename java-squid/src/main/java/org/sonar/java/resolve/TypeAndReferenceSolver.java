@@ -25,10 +25,8 @@ import com.google.common.collect.Maps;
 import org.sonar.java.ast.api.JavaKeyword;
 import org.sonar.java.model.AbstractTypedTree;
 import org.sonar.java.model.JavaTree;
-import org.sonar.java.model.declaration.ClassTreeImpl;
 import org.sonar.java.model.declaration.VariableTreeImpl;
 import org.sonar.java.model.expression.MethodInvocationTreeImpl;
-import org.sonar.java.model.expression.NewClassTreeImpl;
 import org.sonar.java.model.expression.TypeArgumentListTreeImpl;
 import org.sonar.plugins.java.api.tree.AnnotationTree;
 import org.sonar.plugins.java.api.tree.ArrayAccessExpressionTree;
@@ -66,8 +64,6 @@ import org.sonar.plugins.java.api.tree.VariableTree;
 import org.sonar.plugins.java.api.tree.WildcardTree;
 
 import javax.annotation.Nullable;
-
-import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -112,43 +108,9 @@ public class TypeAndReferenceSolver extends BaseTreeVisitor {
   public void visitClass(ClassTree tree) {
     //skip superclass and interfaces : visited in second pass.
     scan(tree.modifiers());
-    completeMetadata(((ClassTreeImpl) tree).getSymbol(), tree.modifiers().annotations());
     scan(tree.typeParameters());
     scan(tree.members());
   }
-
-  //FIXME also support method symbol and field symbols
-  private void completeMetadata(Symbol.TypeSymbol symbol, List<AnnotationTree> annotations) {
-    for (AnnotationTree tree : annotations) {
-      AnnotationInstance annotationInstance = new AnnotationInstance(symbol);
-      symbol.metadata().addAnnotation(annotationInstance);
-      if (tree.arguments().size() > 1 || (!tree.arguments().isEmpty() && tree.arguments().get(0).is(Tree.Kind.ASSIGNMENT))) {
-        for (ExpressionTree expressionTree : tree.arguments()) {
-          AssignmentExpressionTree aet = (AssignmentExpressionTree) expressionTree;
-          //TODO: Store more precise value than the expression (real value in case of literal, symbol for enums, array of values, solve constants?)
-          annotationInstance.addValue(new AnnotationValue(((IdentifierTree) aet.variable()).name(), aet.expression()));
-        }
-      } else {
-        //Constant
-        addConstantValue(symbol, tree, annotationInstance);
-      }
-    }
-  }
-
-  private void addConstantValue(Symbol.TypeSymbol symbol, AnnotationTree tree, AnnotationInstance annotationInstance) {
-    Collection<Symbol> scopeSymbols = ((AbstractTypedTree) tree.annotationType()).getSymbolType().getSymbol().members().scopeSymbols();
-    for (ExpressionTree expressionTree : tree.arguments()) {
-      String name = "";
-      for (Symbol scopeSymbol : scopeSymbols) {
-        if(scopeSymbol.isKind(Symbol.MTH)) {
-          name = scopeSymbol.getName();
-          break;
-        }
-      }
-      annotationInstance.addValue(new AnnotationValue(name, expressionTree));
-    }
-  }
-
 
   @Override
   public void visitImport(ImportTree tree) {
@@ -247,7 +209,6 @@ public class TypeAndReferenceSolver extends BaseTreeVisitor {
       if (tree.is(Tree.Kind.MEMBER_SELECT)) {
         MemberSelectExpressionTree mse = (MemberSelectExpressionTree) tree;
         if (JavaKeyword.CLASS.getValue().equals(mse.identifier().name())) {
-          resolveAs(mse.expression(), Symbol.TYP, resolveEnv);
           // member select ending with .class
           registerType(tree, symbols.classType);
           return null;
@@ -417,8 +378,7 @@ public class TypeAndReferenceSolver extends BaseTreeVisitor {
     resolveAs(tree.identifier(), Symbol.TYP, newClassEnv, false);
     resolveAs(tree.typeArguments(), Symbol.TYP);
     resolveAs(tree.arguments(), Symbol.VAR);
-    NewClassTreeImpl newClassTreeImpl = (NewClassTreeImpl) tree;
-    resolveConstructorSymbol(newClassTreeImpl.getConstructorIdentifier(), newClassEnv, getParameterTypes(tree.arguments()));
+    resolveConstructorSymbol(tree.identifier(), newClassEnv, getParameterTypes(tree.arguments()));
     if (tree.classBody() != null) {
       //TODO create a new symbol and type for each anonymous class
       scan(tree.classBody());
@@ -428,11 +388,29 @@ public class TypeAndReferenceSolver extends BaseTreeVisitor {
     }
   }
 
-  private Symbol resolveConstructorSymbol(IdentifierTree identifier, Resolve.Env methodEnv, List<Type> argTypes) {
-    Symbol symbol = resolve.findMethod(methodEnv, ((AbstractTypedTree) identifier).getSymbolType().getSymbol(), "<init>", argTypes);
+  private Symbol resolveConstructorSymbol(Tree constructorSelect, Resolve.Env methodEnv, List<Type> argTypes) {
+    Symbol symbol;
+    IdentifierTree identifier = getConstructorIdentifier(constructorSelect);
+    symbol = resolve.findMethod(methodEnv, ((AbstractTypedTree) identifier).getSymbolType().getSymbol(), "<init>", argTypes);
     associateReference(identifier, symbol);
     return symbol;
   }
+
+  private IdentifierTree getConstructorIdentifier(Tree constructorSelect) {
+    IdentifierTree identifier;
+    if (constructorSelect.is(Tree.Kind.MEMBER_SELECT)) {
+      MemberSelectExpressionTree mset = (MemberSelectExpressionTree) constructorSelect;
+      identifier = mset.identifier();
+    } else if (constructorSelect.is(Tree.Kind.IDENTIFIER)) {
+      identifier = (IdentifierTree) constructorSelect;
+    } else if(constructorSelect.is(Tree.Kind.PARAMETERIZED_TYPE)) {
+      identifier = getConstructorIdentifier(((ParameterizedTypeTree) constructorSelect).type());
+    } else {
+      throw new IllegalStateException("Constructor select is not of the expected type " + constructorSelect);
+    }
+    return identifier;
+  }
+
 
   @Override
   public void visitPrimitiveType(PrimitiveTypeTree tree) {
@@ -517,24 +495,8 @@ public class TypeAndReferenceSolver extends BaseTreeVisitor {
   @Override
   public void visitAnnotation(AnnotationTree tree) {
     resolveAs(tree.annotationType(), Symbol.TYP);
-    if(tree.arguments().size()>1 || (!tree.arguments().isEmpty() && tree.arguments().get(0).is(Tree.Kind.ASSIGNMENT))) {
-      //resolve by identifying correct identifier in assignment.
-      for (ExpressionTree expressionTree : tree.arguments()) {
-        AssignmentExpressionTree aet = (AssignmentExpressionTree) expressionTree;
-        IdentifierTree variable = (IdentifierTree) aet.variable();
-        Symbol identInType = resolve.findMethod(semanticModel.getEnv(tree), getType(tree.annotationType()).symbol, variable.name(), ImmutableList.<Type>of());
-        associateReference(variable, identInType);
-        Type type = identInType.type;
-        if(type == null) {
-          type = symbols.unknownType;
-        }
-        registerType(variable, type);
-        resolveAs(aet.expression(), Symbol.VAR);
-      }
-    } else {
-      for (ExpressionTree expressionTree : tree.arguments()) {
-        resolveAs(expressionTree, Symbol.VAR);
-      }
+    for (ExpressionTree expressionTree : tree.arguments()) {
+      resolveAs(expressionTree, Symbol.VAR);
     }
     registerType(tree, getType(tree.annotationType()));
   }

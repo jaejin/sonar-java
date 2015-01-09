@@ -27,15 +27,11 @@ import org.sonar.java.model.AbstractTypedTree;
 import org.sonar.java.model.declaration.ClassTreeImpl;
 import org.sonar.plugins.java.api.tree.ClassTree;
 import org.sonar.plugins.java.api.tree.ExpressionTree;
-import org.sonar.plugins.java.api.tree.IdentifierTree;
-import org.sonar.plugins.java.api.tree.MemberSelectExpressionTree;
 import org.sonar.plugins.java.api.tree.NewClassTree;
-import org.sonar.plugins.java.api.tree.ParameterizedTypeTree;
 import org.sonar.plugins.java.api.tree.Tree;
 import org.sonar.plugins.java.api.tree.TreeVisitor;
 
 import javax.annotation.Nullable;
-
 import java.util.Iterator;
 import java.util.List;
 
@@ -140,24 +136,5 @@ public class NewClassTreeImpl extends AbstractTypedTree implements NewClassTree 
       arguments.iterator(),
       Iterators.singletonIterator(classBody)
       );
-  }
-
-  public IdentifierTree getConstructorIdentifier() {
-    return getConstructorIdentifier(identifier());
-  }
-
-  private IdentifierTree getConstructorIdentifier(Tree constructorSelect) {
-    IdentifierTree constructorIdentifier;
-    if (constructorSelect.is(Tree.Kind.MEMBER_SELECT)) {
-      MemberSelectExpressionTree mset = (MemberSelectExpressionTree) constructorSelect;
-      constructorIdentifier = mset.identifier();
-    } else if (constructorSelect.is(Tree.Kind.IDENTIFIER)) {
-      constructorIdentifier = (IdentifierTree) constructorSelect;
-    } else if (constructorSelect.is(Tree.Kind.PARAMETERIZED_TYPE)) {
-      constructorIdentifier = getConstructorIdentifier(((ParameterizedTypeTree) constructorSelect).type());
-    } else {
-      throw new IllegalStateException("Constructor select is not of the expected type " + constructorSelect);
-    }
-    return constructorIdentifier;
   }
 }

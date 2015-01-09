@@ -64,14 +64,6 @@ class C{
   void foo() {
     if(c1 == c2);
   }
-  enum MyEnum{
-    Value;
-  }
-  class MyClass<T> {
-    void foo() {
-      if(myMethod(this) == MyEnum.Value) {}
-    }
 
-    T myMethod(MyClass<T> instance){}
-  }
+
 }

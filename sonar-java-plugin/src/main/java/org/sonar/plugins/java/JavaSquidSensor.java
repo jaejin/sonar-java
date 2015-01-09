@@ -90,7 +90,7 @@ public class JavaSquidSensor implements Sensor {
     JavaSquid squid = new JavaSquid(configuration, sonarComponents, measurer, javaResourceLocator, checkList.toArray(new CodeVisitor[checkList.size()]));
     squid.scan(getSourceFiles(), getTestFiles(), getBytecodeFiles());
     new Bridges(squid, settings).save(context, project, checks, javaResourceLocator.getResourceMapping(),
-        sonarComponents.getResourcePerspectives(), noSonarFilter, profile, javaResourceLocator.getIgnoredLinesForRules());
+        sonarComponents.getResourcePerspectives(), noSonarFilter, profile);
   }
 
   private Iterable<File> getSourceFiles() {

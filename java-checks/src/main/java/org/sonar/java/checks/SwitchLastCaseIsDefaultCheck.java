@@ -33,8 +33,7 @@ import java.util.List;
 
 @Rule(
     key = "SwitchLastCaseIsDefaultCheck",
-    priority = Priority.MAJOR,
-    tags = {"cert", "cwe", "misra"})
+    priority = Priority.MAJOR)
 @BelongsToProfile(title = "Sonar way", priority = Priority.MAJOR)
 public class SwitchLastCaseIsDefaultCheck extends SubscriptionBaseVisitor {
 

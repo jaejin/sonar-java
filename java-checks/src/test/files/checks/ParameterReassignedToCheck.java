@@ -39,6 +39,4 @@ class A {
     b++; // Compliant
     this.a++; // Compliant
   }
-  @Annotation(param="value") //raise issue because this param is considered as a reassignement of method parameter.
-  void foo(String param) {}
 }

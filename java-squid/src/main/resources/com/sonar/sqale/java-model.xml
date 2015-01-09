@@ -1224,19 +1224,6 @@
       <name>Input validation and representation</name>
       <chc>
         <rule-repo>squid</rule-repo>
-        <rule-key>S2076</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>30</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
         <rule-key>S2077</rule-key>
         <prop>
           <key>remediationFunction</key>
@@ -1245,19 +1232,6 @@
         <prop>
           <key>offset</key>
           <val>20</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2078</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>30</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -1278,32 +1252,6 @@
     <chc>
       <key>SECURITY_FEATURES</key>
       <name>Security features</name>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2277</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>20</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2278</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>20</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
       <chc>
         <rule-repo>squid</rule-repo>
         <rule-key>S2254</rule-key>
@@ -1403,19 +1351,6 @@
     <chc>
       <key>MEMORY_EFFICIENCY</key>
       <name>Memory use</name>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2059</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>15</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
       <chc>
         <rule-repo>squid</rule-repo>
         <rule-key>S1170</rule-key>
@@ -1646,19 +1581,6 @@
       <name>Data</name>
       <chc>
         <rule-repo>squid</rule-repo>
-        <rule-key>S2057</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>5</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
         <rule-key>S1479</rule-key>
         <prop>
           <key>remediationFunction</key>
@@ -1721,45 +1643,6 @@
     <chc>
       <key>ARCHITECTURE_RELIABILITY</key>
       <name>Architecture</name>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S1699</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>10</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S1943</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>15</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2272</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>5</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
       <chc>
         <rule-repo>squid</rule-repo>
         <rule-key>S1849</rule-key>
@@ -2013,71 +1896,6 @@
       <name>Data</name>
       <chc>
         <rule-repo>squid</rule-repo>
-        <rule-key>S2118</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>15</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2066</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>15</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2055</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>30</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2197</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>5</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2204</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>5</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
         <rule-key>S2200</rule-key>
         <prop>
           <key>remediationFunction</key>
@@ -2184,19 +2002,6 @@
     <chc>
       <key>EXCEPTION_HANDLING</key>
       <name>Exception handling</name>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2096</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>15</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
       <chc>
         <rule-repo>squid</rule-repo>
         <rule-key>S1163</rule-key>
@@ -2311,97 +2116,6 @@
       <name>Instruction</name>
       <chc>
         <rule-repo>squid</rule-repo>
-        <rule-key>S2127</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>15</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2151</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>20</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2275</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>10</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2157</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>30</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2116</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>5</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2109</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>15</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2111</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>remediationFactor</key>
-          <val>5</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
         <rule-key>S2251</rule-key>
         <prop>
           <key>remediationFunction</key>
@@ -2423,6 +2137,19 @@
         <prop>
           <key>remediationFactor</key>
           <val>10</val>
+          <txt>mn</txt>
+        </prop>
+      </chc>
+      <chc>
+        <rule-repo>squid</rule-repo>
+        <rule-key>S2096</rule-key>
+        <prop>
+          <key>remediationFunction</key>
+          <txt>CONSTANT_ISSUE</txt>
+        </prop>
+        <prop>
+          <key>remediationFactor</key>
+          <val>15</val>
           <txt>mn</txt>
         </prop>
       </chc>
@@ -2679,19 +2406,6 @@
       <name>Logic</name>
       <chc>
         <rule-repo>squid</rule-repo>
-        <rule-key>S2178</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>5</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
         <rule-key>S2252</rule-key>
         <prop>
           <key>remediationFunction</key>
@@ -2867,58 +2581,6 @@
     <chc>
       <key>SYNCHRONIZATION_RELIABILITY</key>
       <name>Synchronization</name>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S1860</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>15</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2276</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>5</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2274</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>20</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
-      <chc>
-        <rule-repo>squid</rule-repo>
-        <rule-key>S2273</rule-key>
-        <prop>
-          <key>remediationFunction</key>
-          <txt>CONSTANT_ISSUE</txt>
-        </prop>
-        <prop>
-          <key>offset</key>
-          <val>20</val>
-          <txt>mn</txt>
-        </prop>
-      </chc>
       <chc>
         <rule-repo>squid</rule-repo>
         <rule-key>S2226</rule-key>

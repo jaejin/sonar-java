@@ -24,9 +24,6 @@ import org.sonar.api.rule.RuleKey;
 import org.sonar.check.BelongsToProfile;
 import org.sonar.check.Priority;
 import org.sonar.check.Rule;
-import org.sonar.java.model.declaration.VariableTreeImpl;
-import org.sonar.java.resolve.SemanticModel;
-import org.sonar.java.resolve.Symbol;
 import org.sonar.plugins.java.api.JavaFileScanner;
 import org.sonar.plugins.java.api.JavaFileScannerContext;
 import org.sonar.plugins.java.api.tree.AssignmentExpressionTree;
@@ -44,46 +41,40 @@ import java.util.Set;
 @Rule(
   key = ParameterReassignedToCheck.RULE_KEY,
   priority = Priority.MAJOR,
-  tags={"pitfall", "misra"})
+  tags={"pitfall"})
 @BelongsToProfile(title = "Sonar way", priority = Priority.MAJOR)
 public class ParameterReassignedToCheck extends BaseTreeVisitor implements JavaFileScanner {
 
   public static final String RULE_KEY = "S1226";
   private final RuleKey ruleKey = RuleKey.of(CheckList.REPOSITORY_KEY, RULE_KEY);
 
-  private final Set<Symbol.VariableSymbol> variables = Sets.newHashSet();
+  private final Set<String> variables = Sets.newHashSet();
 
   private JavaFileScannerContext context;
-  private SemanticModel semanticModel;
 
   @Override
   public void scanFile(final JavaFileScannerContext context) {
     this.context = context;
     variables.clear();
-    semanticModel = (SemanticModel) context.getSemanticModel();
     scan(context.getTree());
-  }
-
-  private boolean hasSemanticModel() {
-    return semanticModel != null;
   }
 
   @Override
   public void visitMethod(MethodTree tree) {
     for (VariableTree parameterTree : tree.parameters()) {
-      variables.add(((VariableTreeImpl) parameterTree).getSymbol());
+      variables.add(parameterTree.simpleName().name());
     }
     super.visitMethod(tree);
     for (VariableTree parameterTree : tree.parameters()) {
-      variables.remove(((VariableTreeImpl) parameterTree).getSymbol());
+      variables.remove(parameterTree.simpleName().name());
     }
   }
 
   @Override
   public void visitCatch(CatchTree tree) {
-    variables.add(((VariableTreeImpl) tree.parameter()).getSymbol());
+    variables.add(tree.parameter().simpleName().name());
     super.visitCatch(tree);
-    variables.remove(((VariableTreeImpl) tree.parameter()).getSymbol());
+    variables.remove(tree.parameter().simpleName().name());
   }
 
   @Override
@@ -106,10 +97,9 @@ public class ParameterReassignedToCheck extends BaseTreeVisitor implements JavaF
   }
 
   private void checkExpression(ExpressionTree tree) {
-    if (hasSemanticModel() && tree.is(Tree.Kind.IDENTIFIER)) {
+    if (tree.is(Tree.Kind.IDENTIFIER)) {
       IdentifierTree identifier = (IdentifierTree) tree;
-      Symbol reference = semanticModel.getReference(identifier);
-      if (reference != null && reference.isKind(Symbol.VAR) && variables.contains(reference)) {
+      if (variables.contains(identifier.name())) {
         context.addIssue(identifier, ruleKey, "Introduce a new variable instead of reusing the parameter \"" + identifier.name() + "\".");
       }
     }
